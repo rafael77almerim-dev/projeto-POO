@@ -52,7 +52,7 @@ public class Atividades {
     if (nome != null && !nome.trim().isEmpty()) { 
         this.nome = nome;
     } else {
-        System.out.println("Erro: O nome não pode estar vazio!");
+        System.out.println("Erro: O nome não pode estar vazio");
     }
 }
 
