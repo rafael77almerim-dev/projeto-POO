@@ -21,7 +21,7 @@ public class Instrutor {
     }
 
     /**
-     * Getteres
+     * Getters
      */
 
     public String getNome(){
@@ -37,7 +37,7 @@ public class Instrutor {
     }
 
     /**
-     * Setteres
+     * Setters
      */
 
     public void setNome(String nome){
