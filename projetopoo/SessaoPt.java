@@ -26,7 +26,7 @@ public class SessaoPt extends Atividades {
      */
     public void setNivelTreino(String nivelTreino){
         if (nivelTreino != null && !nivelTreino.trim().isEmpty()) {
-            this.nivelTreino = nivelTreino;
+            this.nivelTreino = nivelTreino.trim();
         } else {
             System.out.println("Erro: O nível do treino não pode estar vazio");
         }

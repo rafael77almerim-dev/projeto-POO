@@ -42,7 +42,7 @@ public class Instrutor {
 
     public void setNome(String nome){
         if( nome != null && !nome.trim().isEmpty()){
-           this.nome = nome; 
+           this.nome = nome.trim(); 
         } else{
             System.out.println("Erro: O nome não pode estar vazio ");
         }

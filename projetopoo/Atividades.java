@@ -50,7 +50,7 @@ public class Atividades {
      * .trim retira os espaços vazios da string, e .isEmpty retorna true se a string estiver vazia(false se não estiver)
      */
     if (nome != null && !nome.trim().isEmpty()) { 
-        this.nome = nome;
+        this.nome = nome.trim();
     } else {
         System.out.println("Erro: O nome não pode estar vazio");
     }
