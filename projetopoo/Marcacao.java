@@ -9,18 +9,19 @@ public class Marcacao {
     /**
      * atributos
      */
-    
+    private Socio socio;
     private Atividades atividade;
     private Instrutor instrutor;
-    private String data;
+    private String dataHora;
 
     /**
      * Construtor da classe Marcacao
      */
-    public Marcacao(Atividades atividade, Instrutor instrutor, String data) {
+    public Marcacao(Socio socio, Atividades atividade, Instrutor instrutor, String dataHora) {
+        this.socio = socio;
         this.atividade = atividade;
         this.instrutor = instrutor;
-        this.data = data;
+        this.dataHora = dataHora;
     }
 
     /**
@@ -46,6 +47,15 @@ public class Marcacao {
     /**
      * Getters e Setters
      */
+
+    public Socio getSocio(){
+        return socio;
+    }
+
+    public void setSocio(Socio socio) {
+        this.socio = socio;
+    }
+
     public Atividades getAtividade() {
         return atividade;
     }
@@ -62,11 +72,11 @@ public class Marcacao {
         this.instrutor = instrutor;
     }
 
-    public String getData() {
-        return data;
+    public String getDataHora() {
+        return dataHora;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setData(String dataHora) {
+        this.dataHora = dataHora;
     }
 }

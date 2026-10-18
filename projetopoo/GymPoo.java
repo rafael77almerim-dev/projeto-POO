@@ -15,6 +15,7 @@ public class GymPoo {
     private List<Socio> socios;
     private List<Instrutor> instrutores;
     private List<Atividades> atividades;
+    private List<Marcacao> marcacoes; 
 
     /**
      * Construtor da classe Ginasio
@@ -25,6 +26,7 @@ public class GymPoo {
         this.socios = new ArrayList<>();
         this.instrutores = new ArrayList<>();
         this.atividades = new ArrayList<>();
+        this.marcacoes = new ArrayList<>();
     }
 
     /**
@@ -64,6 +66,18 @@ public class GymPoo {
     }
 
     /**
+     * Método para adicionar uma nova marcação à lista do ginásio
+     */
+    public void adicionarMarcacao(Marcacao marcacao) {
+        if (marcacao != null) {
+            marcacoes.add(marcacao); // Insere a marcação na coleção
+            System.out.println("Marcação efetuada com sucesso");
+        } else {
+            System.out.println("Erro: Não é possível adicionar uma marcação nula");
+        }
+    }
+
+    /**
      * Getters, vão permitir consultar ou obter as listas completas de dados 
      */
     public List<Socio> getSocios() {
@@ -76,5 +90,9 @@ public class GymPoo {
 
     public List<Atividades> getAtividades() {
         return atividades;
+    }
+
+    public List<Marcacao> getMarcacoes() {
+        return marcacoes;
     }
 }

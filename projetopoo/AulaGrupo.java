@@ -4,6 +4,10 @@ package projetopoo;
 * sub classe, da classe Atividades, aqui acrescentamos os atributos modalidade, e capacidade max
 */
 public class AulaGrupo extends Atividades {
+    /**
+     * Atributos
+     * o preço base da modalidade, fazemos manualmente na main(pedindo ao uitlizador)? Ou deixamos automatico aqui
+     */
     private String modalidade;
     private int capacidadeMaxima;
 
