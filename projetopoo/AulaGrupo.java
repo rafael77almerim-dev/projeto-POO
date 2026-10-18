@@ -10,8 +10,8 @@ public class AulaGrupo extends Atividades {
     /**
      * Construtor que vai inicializar os atributos especificos, e os da super
      */ 
-    public AulaGrupo(String nome, String instrutor, String dataHora, int duracao, String modalidade, int capacidadeMaxima) {
-        super(nome, instrutor, dataHora, duracao); // Reutiliza os atributos da classe(usa o construtor do "pai")
+    public AulaGrupo(String nome, String instrutor, String dataHora, int duracao, Double precoBase, String modalidade, int capacidadeMaxima) {
+        super(nome, instrutor, dataHora, duracao, precoBase); // Reutiliza os atributos da classe(usa o construtor do "pai")
         this.modalidade = modalidade;
         this.capacidadeMaxima = capacidadeMaxima;
     }

@@ -9,8 +9,8 @@ public class SessaoPt extends Atividades {
     /**
      * Contrutor
      */
-    public SessaoPt(String nome, String instrutor, String dataHora, int duracao, String nivelTreino){
-        super(nome, instrutor, dataHora, duracao);
+    public SessaoPt(String nome, String instrutor, String dataHora, int duracao, Double precoBase, String nivelTreino){
+        super(nome, instrutor, dataHora, duracao, precoBase);
         this.nivelTreino = nivelTreino;
     }
     

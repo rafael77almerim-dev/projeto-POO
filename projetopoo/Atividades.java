@@ -12,15 +12,17 @@ public class Atividades {
     private String instrutor; 
     private String dataHora;
     private int duracao; 
+    private double precoBase;
 
     /**
      *  Construtor (Para inicializar a atividade quando for criada)
      */  
-    public Atividades(String nome, String instrutor, String dataHora, int duracao) {
+    public Atividades(String nome, String instrutor, String dataHora, int duracao, double precoBase) {
         this.nome = nome;
         this.instrutor = instrutor;
         this.dataHora = dataHora;
         this.duracao = duracao;
+        this.precoBase = precoBase;
     }
 
     /** 
@@ -42,6 +44,10 @@ public class Atividades {
         return duracao;
     }
 
+    public double getPrecoBase() {
+        return precoBase;
+    }
+
     /**
     * Setters (permite alterar os valores, mesmo estando em private)
     */ 
@@ -54,7 +60,7 @@ public class Atividades {
     } else {
         System.out.println("Erro: O nome não pode estar vazio");
     }
-}
+   }
 
     public void setInstrutor(String instrutor) {
         this.instrutor = instrutor;
@@ -65,12 +71,21 @@ public class Atividades {
     }
 
     public void setDuracao(int duracao) {
-    if (duracao > 0) {
+     if (duracao > 0) {
         this.duracao = duracao; 
     } else {
         System.out.println("Erro: A duração tem de ser um valor positivo");
     }
-}
+   }
+
+
+    public void setPrecoBase(double precoBase) {
+     if (precoBase >= 0) {
+        this.precoBase = precoBase;
+     } else {
+        System.out.println("Erro: O preço base não pode ser negativo");
+     }
+    }
 
     /**
      * Este método imrpime todos os atributos desta classe numa linha, vai facilitar a organização e testes
