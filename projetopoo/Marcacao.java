@@ -28,8 +28,8 @@ public class Marcacao {
      * Método para calcular o custo final se o sócio for individual
      */
     public double calcularCustoFinal(SocioIndividual socio) {
-        double custoBase = atividade.getPrecoBase();
-        double percentagemDesconto = socio.calcularDesconto(); // Vai buscar os 10% ou 15%
+        double custoBase = atividade.getPrecoBase(); 
+        double percentagemDesconto = socio.calcularDesconto(); // 10% ou 15%
         
         return custoBase - (custoBase * percentagemDesconto);
     }

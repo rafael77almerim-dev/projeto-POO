@@ -9,8 +9,8 @@ public class SessaoPt extends Atividades {
     /**
      * Contrutor
      */
-    public SessaoPt(String nome, String instrutor, String dataHora, int duracao, Double precoBase, String nivelTreino){
-        super(nome, instrutor, dataHora, duracao, precoBase);
+    public SessaoPt(String nome, String instrutor, String dataHora, int duracao, String nivelTreino){
+        super(nome, instrutor, dataHora, duracao, calcularPrecoBase(nivelTreino));
         this.nivelTreino = nivelTreino;
     }
     
@@ -32,4 +32,22 @@ public class SessaoPt extends Atividades {
         }
 
     }
+    /**
+     * metodo
+     * @param nivel
+     * @return
+     */
+    private static double calcularPrecoBase(String nivel) {
+    switch (nivel.toLowerCase().trim()) {
+        case "iniciação":
+        case "iniciacao": return 18.00;
+        case "intermédio":
+        case "intermedio": return 22.00;
+        case "avançado":
+        case "avancado": return 28.00;
+        default:
+            System.out.println("Erro: O nível '" + nivel + "' não existe");
+            return 0.0;
+    }
+}
 }

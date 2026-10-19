@@ -48,6 +48,7 @@ public class Atividades {
         return precoBase;
     }
 
+
     /**
     * Setters (permite alterar os valores, mesmo estando em private)
     */ 
@@ -77,15 +78,6 @@ public class Atividades {
         System.out.println("Erro: A duração tem de ser um valor positivo");
     }
    }
-
-
-    public void setPrecoBase(double precoBase) {
-     if (precoBase >= 0) {
-        this.precoBase = precoBase;
-     } else {
-        System.out.println("Erro: O preço base não pode ser negativo");
-     }
-    }
 
     /**
      * Este método imrpime todos os atributos desta classe numa linha, vai facilitar a organização e testes
