@@ -43,7 +43,7 @@ public class Main {
                 opcao = scanner.nextInt();
                 scanner.nextLine(); // Limpeza do buffer do teclado
             } else {
-                System.out.println("Erro: Por favor, insira um número inteiro válido!");
+                System.out.println("Erro: Por favor, insira um número inteiro válido");
                 scanner.nextLine(); // Limpeza de entrada inválida
                 continue;
             }
@@ -97,6 +97,11 @@ public class Main {
                     String nomeInst = scanner.nextLine();
                     System.out.print("Género (Masculino/Feminino): ");
                     String genero = scanner.nextLine();
+                    if(!genero.equalsIgnoreCase("masculino") && !genero.equalsIgnoreCase("femenino")){
+                        System.out.println("Erro: Género inválido");
+                        System.out.println("Erro a registrar Instrutor");
+                        break;
+                    }
                     System.out.print("Formações / Cursos: ");
                     String formacoes = scanner.nextLine();
 
@@ -269,7 +274,7 @@ public class Main {
                     scanner.nextLine();
 
                     if (opcaoInst1 < 0 || opcaoInst1 >= gymPoo.getInstrutores().size()) {
-                        System.out.println("Erro: Seleção de instrutor inválida.");
+                        System.out.println("Erro: Seleção de instrutor inválida");
                         break;
                     }
                     Instrutor instEscolhido = gymPoo.getInstrutores().get(opcaoInst1);
