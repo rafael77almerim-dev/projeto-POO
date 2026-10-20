@@ -12,10 +12,10 @@ import java.util.List;
 public class GymPoo {
     
     // Atributos, coleções (ArrayLists) que armazenam os dados de forma dinâmica em memória
-    private List<Socio> socios;
-    private List<Instrutor> instrutores;
-    private List<Atividades> atividades;
-    private List<Marcacao> marcacoes; 
+    private ArrayList<Socio> socios;
+    private ArrayList<Instrutor> instrutores;
+    private ArrayList<Atividades> atividades;
+    private ArrayList<Marcacao> marcacoes; 
 
     /**
      * Construtor da classe Ginasio

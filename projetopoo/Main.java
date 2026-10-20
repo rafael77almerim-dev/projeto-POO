@@ -107,69 +107,75 @@ public class Main {
 
                 case 3:
                     /**
-                     * Registar Atividade (Aula de Grupo ou Sessão PT)
-                     * Nota: O preço base é calculado automaticamente pelas subclasses.
+                     * Registrar atividade
                      */
                     System.out.println("\n--- Registar Atividade ---");
-                    System.out.print("Tipo (1 - Aula de Grupo | 2 - Sessão PT): ");
-                    int tipoAtiv = scanner.nextInt();
-                    scanner.nextLine();
+                    
+                    if (gymPoo.getInstrutores().isEmpty()) {
+                        System.out.println("Erro: Não existem instrutores registados. Registe um instrutor primeiro (Opção 2)");
+                        break;
+                    }
 
-                    System.out.print("Nome da atividade: ");
-                    String nomeAtiv = scanner.nextLine();
-                    System.out.print("Nome do instrutor responsável: ");
-                    String instAtiv = scanner.nextLine();
+                    System.out.print("Tipo (1 - Aula de Grupo | 2 - Sessão PT): ");
+                    int tipoAtiv = Integer.parseInt(scanner.nextLine().trim());
+
+                    // Escolher Instrutor
+                    System.out.println("\nInstrutores disponíveis:");
+                    for (int i = 0; i < gymPoo.getInstrutores().size(); i++) {
+                        System.out.println((i + 1) + ". " + gymPoo.getInstrutores().get(i).getNome());
+                    }
+                    System.out.print("Escolha o número do instrutor responsável: ");
+                    int opcaoInst = Integer.parseInt(scanner.nextLine().trim()) - 1;  //lê o numero posto pelo utilizador
+                                                                                      //diminui em um(pois apresentamos os instrutures a começar por 1)
+
+                    if (opcaoInst < 0 || opcaoInst >= gymPoo.getInstrutores().size()) {
+                        System.out.println("Erro: Seleção de instrutor inválida");
+                        break;
+                    }
+                    String instAtiv = gymPoo.getInstrutores().get(opcaoInst).getNome();
+
                     System.out.print("Data/Hora (ex: 28/10/2026 10:00): ");
                     String dataHoraAtiv = scanner.nextLine();
                     System.out.print("Duração (em minutos): ");
-                    int duracao = scanner.nextInt();
-                    scanner.nextLine(); // Limpeza do buffer
+                    int duracao = Integer.parseInt(scanner.nextLine().trim());
 
                     if (tipoAtiv == 1) {
-                        System.out.println("\nEscolha a Modalidade:");
-                        System.out.println("1. Yoga (8.00€)");
-                        System.out.println("2. Spinning (9.00€)");
-                        System.out.println("3. Zumba (8.50€)");
-                        System.out.println("4. CrossFit (12.00€)");
-                        System.out.print("Opção: ");
-                        int opMod = scanner.nextInt();
-                        scanner.nextLine();
-
-                        String modalidade = "Yoga";
-                        if (opMod == 2) modalidade = "Spinning";
-                        else if (opMod == 3) modalidade = "Zumba";
-                        else if (opMod == 4) modalidade = "CrossFit";
-
                         System.out.print("Capacidade máxima de alunos: ");
-                        int capMax = scanner.nextInt();
-                        scanner.nextLine();
+                        int capMax = Integer.parseInt(scanner.nextLine().trim());
+                        
+                        System.out.print("Nome da modalidade (Yoga, Spinning, Zumba, CrossFit): ");
+                        String modalidade = scanner.nextLine();
+
+                     
+                        String nomeAtiv = "Aula de " + modalidade; 
 
                         AulaGrupo aula = new AulaGrupo(nomeAtiv, instAtiv, dataHoraAtiv, duracao, modalidade, capMax);
-                        gymPoo.adicionarAtividade(aula);
-                        System.out.println("Aula de Grupo registada com sucesso!");
+                        
+                        if (aula.getPrecoBase() > 0) {
+                            gymPoo.adicionarAtividade(aula);
+                            System.out.println("Aula de Grupo registada com sucesso (" + nomeAtiv + ")");
+                        } else {
+                            System.out.println("-> Falha a guardar: Modalidade inválida");
+                        }
 
                     } else if (tipoAtiv == 2) {
-                        System.out.println("\nEscolha o Nível:");
-                        System.out.println("1. Iniciação (18.00€)");
-                        System.out.println("2. Intermédio (22.00€)");
-                        System.out.println("3. Avançado (28.00€)");
-                        System.out.print("Opção: ");
-                        int opNivel = scanner.nextInt();
-                        scanner.nextLine();
+                        System.out.print("Nível (Iniciação, Intermédio ou Avançado): ");
+                        String nivel = scanner.nextLine();
 
-                        String nivel = "Iniciação";
-                        if (opNivel == 2) nivel = "Intermédio";
-                        else if (opNivel == 3) nivel = "Avançado";
+                        String nomeAtiv = "Sessão PT - " + nivel;
 
                         SessaoPt pt = new SessaoPt(nomeAtiv, instAtiv, dataHoraAtiv, duracao, nivel);
-                        gymPoo.adicionarAtividade(pt);
-                        System.out.println("Sessão PT registada com sucesso!");
-
+                        
+                        if (pt.getPrecoBase() > 0) {
+                            gymPoo.adicionarAtividade(pt);
+                            System.out.println("Sessão PT registada com sucesso (" + nomeAtiv + ")");
+                        } else {
+                            System.out.println("-> Falha a guardar: Nível inválido");
+                        }
                     } else {
-                        System.out.println("Opção de tipo de atividade inválida.");
+                        System.out.println("Opção de tipo de atividade inválida");
                     }
                     break;
-
                 case 4:
                     /**
                      * Listar Sócios
@@ -218,7 +224,7 @@ public class Main {
                     System.out.println("\n--- Criar Marcação ---");
 
                     if (gymPoo.getSocios().isEmpty() || gymPoo.getAtividades().isEmpty() || gymPoo.getInstrutores().isEmpty()) {
-                        System.out.println("Erro: Deve ter pelo menos um sócio, uma atividade e um instrutor registados no sistema.");
+                        System.out.println("Erro: Deve ter pelo menos um sócio, uma atividade e um instrutor registados no sistema");
                         break;
                     }
 
@@ -236,7 +242,7 @@ public class Main {
                     }
 
                     if (socioEncontrado == null) {
-                        System.out.println("Erro: Sócio com o número " + numSocioProcurado + " não foi encontrado.");
+                        System.out.println("Erro: Sócio com o número " + numSocioProcurado + " não foi encontrado");
                         break;
                     }
 
@@ -249,7 +255,7 @@ public class Main {
                     scanner.nextLine();
 
                     if (opcaoAtiv < 0 || opcaoAtiv >= gymPoo.getAtividades().size()) {
-                        System.out.println("Erro: Seleção de atividade inválida.");
+                        System.out.println("Erro: Seleção de atividade inválida");
                         break;
                     }
                     Atividades ativEscolhida = gymPoo.getAtividades().get(opcaoAtiv);
@@ -259,14 +265,14 @@ public class Main {
                         System.out.println((i + 1) + ". " + gymPoo.getInstrutores().get(i).getNome());
                     }
                     System.out.print("Escolha o número do instrutor: ");
-                    int opcaoInst = scanner.nextInt() - 1;
+                    int opcaoInst1 = scanner.nextInt() - 1;
                     scanner.nextLine();
 
-                    if (opcaoInst < 0 || opcaoInst >= gymPoo.getInstrutores().size()) {
+                    if (opcaoInst1 < 0 || opcaoInst1 >= gymPoo.getInstrutores().size()) {
                         System.out.println("Erro: Seleção de instrutor inválida.");
                         break;
                     }
-                    Instrutor instEscolhido = gymPoo.getInstrutores().get(opcaoInst);
+                    Instrutor instEscolhido = gymPoo.getInstrutores().get(opcaoInst1);
 
                     System.out.print("Data/Hora da marcação: ");
                     String dataMarcacao = scanner.nextLine();
@@ -281,7 +287,7 @@ public class Main {
                         custoFinal = marcacao.calcularCustoFinal((SocioEmpresa) socioEncontrado);
                     }
 
-                    System.out.println("Marcação criada com sucesso!");
+                    System.out.println("Marcação criada com sucesso");
                     System.out.println("Preço Base: " + ativEscolhida.getPrecoBase() + "€ | Custo Final com Desconto: " + custoFinal + "€");
                     break;
 
@@ -293,7 +299,7 @@ public class Main {
                     double faturacaoTotal = 0.0;
 
                     if (gymPoo.getMarcacoes().isEmpty()) {
-                        System.out.println("Nenhuma marcação efetuada até ao momento.");
+                        System.out.println("Nenhuma marcação efetuada até ao momento");
                     } else {
                         for (int i = 0; i < gymPoo.getMarcacoes().size(); i++) {
                             Marcacao m = gymPoo.getMarcacoes().get(i);
@@ -359,7 +365,7 @@ public class Main {
                     System.out.println("\n--- Atividade Mais Popular ---");
 
                     if (gymPoo.getMarcacoes().isEmpty()) {
-                        System.out.println("Ainda não existem marcações para determinar a atividade mais popular.");
+                        System.out.println("Ainda não existem marcações para determinar a atividade mais popular");
                     } else {
                         Atividades maisPopular = null;
                         int maxMarcacoes = -1;
@@ -428,7 +434,7 @@ public class Main {
                         System.out.println(" -> Valor Total Gasto no Ginásio: " + totalGasto + "€");
                         System.out.println(" -> Valor Total Poupado com Descontos: " + totalPoupado + "€");
                     } else {
-                        System.out.println("Sócio não encontrado ou sem marcações registadas.");
+                        System.out.println("Sócio não encontrado ou sem marcações registadas");
                     }
                     break;
 
@@ -437,7 +443,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Opção inválida, escolha um número entre 0 e 10.");
+                    System.out.println("Opção inválida, escolha um número entre 0 e 10");
             }
 
         } while (opcao != 0);
