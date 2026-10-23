@@ -3,23 +3,30 @@ package projetopoo;
 import java.util.Scanner;
 
 /**
- * Classe principal (Main) 
- * Apresenta um menu interativo em consola para testar e executar a aplicação POOGym.
+ * Classe principal (Main) da aplicação POOGym
+ * Apresenta um menu interativo em consola para gerir sócios, instrutores,
+ * atividades e marcações
+ *
+ * @author Rafael, Tomás
+ * @version 1.0
  */
 public class Main {
 
+    /**
+     * Ponto de entrada principal da aplicação.
+     *
+     * @param args Argumentos da linha de comandos
+     */
     public static void main(String[] args) {
-        // Objeto Scanner para leitura dos dados introduzidos pelo utilizador
         Scanner scanner = new Scanner(System.in);
         
-        // Inicializa a classe gestora que armazena os arrays/coleções do ginásio
         GymPoo gymPoo = new GymPoo();
+        
+        // Carrega os dados fixos de demonstração no arranque (Fase 1)
+        gymPoo.carregarDados();
         
         int opcao = -1;
 
-        /**
-         * Ciclo principal do menu (do-while)
-         */
         do {
             System.out.println("\n=========================================");
             System.out.println("          POOGYM - MENU PRINCIPAL    ");
@@ -38,21 +45,17 @@ public class Main {
             System.out.println("=============================================");
             System.out.print("Escolha uma opção: ");
             
-            // Verificação do buffer para validar se a opção inserida é um número inteiro
             if (scanner.hasNextInt()) {
                 opcao = scanner.nextInt();
-                scanner.nextLine(); // Limpeza do buffer do teclado
+                scanner.nextLine();
             } else {
                 System.out.println("Erro: Por favor, insira um número inteiro válido");
-                scanner.nextLine(); // Limpeza de entrada inválida
+                scanner.nextLine();
                 continue;
             }
 
             switch (opcao) {
                 case 1:
-                    /**
-                     * Registar Sócio (Individual ou Empresa)
-                     */
                     System.out.println("\n--- Registar Sócio ---");
                     System.out.print("Tipo de sócio (1 - Individual | 2 - Empresa): ");
                     int tipoSocio = scanner.nextInt();
@@ -73,7 +76,6 @@ public class Main {
 
                         SocioIndividual si = new SocioIndividual(nomeSocio, numSocio, email, anoNasc);
                         gymPoo.adicionarSocio(si);
-                        System.out.println("Sócio Individual registado com sucesso!");
                     } else if (tipoSocio == 2) {
                         System.out.print("Nome da empresa parceira: ");
                         String nomeEmp = scanner.nextLine();
@@ -82,24 +84,20 @@ public class Main {
 
                         SocioEmpresa se = new SocioEmpresa(nomeSocio, numSocio, email, nomeEmp, nifEmp);
                         gymPoo.adicionarSocio(se);
-                        System.out.println("Sócio Empresa registado com sucesso!");
                     } else {
                         System.out.println("Opção de tipo de sócio inválida.");
                     }
                     break;
 
                 case 2:
-                    /**
-                     * Registar Instrutor
-                     */
                     System.out.println("\n--- Registar Instrutor ---");
                     System.out.print("Nome do instrutor: ");
                     String nomeInst = scanner.nextLine();
                     System.out.print("Género (Masculino/Feminino): ");
                     String genero = scanner.nextLine();
-                    if(!genero.equalsIgnoreCase("masculino") && !genero.equalsIgnoreCase("femenino")){
+                    if (!genero.equalsIgnoreCase("masculino") && !genero.equalsIgnoreCase("feminino")) {
                         System.out.println("Erro: Género inválido");
-                        System.out.println("Erro a registrar Instrutor");
+                        System.out.println("Erro a registar Instrutor");
                         break;
                     }
                     System.out.print("Formações / Cursos: ");
@@ -107,13 +105,9 @@ public class Main {
 
                     Instrutor instrutor = new Instrutor(nomeInst, genero, formacoes);
                     gymPoo.adicionarInstrutor(instrutor);
-                    System.out.println("Instrutor registado com sucesso!");
                     break;
 
                 case 3:
-                    /**
-                     * Registrar atividade
-                     */
                     System.out.println("\n--- Registar Atividade ---");
                     
                     if (gymPoo.getInstrutores().isEmpty()) {
@@ -124,14 +118,12 @@ public class Main {
                     System.out.print("Tipo (1 - Aula de Grupo | 2 - Sessão PT): ");
                     int tipoAtiv = Integer.parseInt(scanner.nextLine().trim());
 
-                    // Escolher Instrutor
                     System.out.println("\nInstrutores disponíveis:");
                     for (int i = 0; i < gymPoo.getInstrutores().size(); i++) {
                         System.out.println((i + 1) + ". " + gymPoo.getInstrutores().get(i).getNome());
                     }
                     System.out.print("Escolha o número do instrutor responsável: ");
-                    int opcaoInst = Integer.parseInt(scanner.nextLine().trim()) - 1;  //lê o numero posto pelo utilizador
-                                                                                      //diminui em um(pois apresentamos os instrutures a começar por 1)
+                    int opcaoInst = Integer.parseInt(scanner.nextLine().trim()) - 1;
 
                     if (opcaoInst < 0 || opcaoInst >= gymPoo.getInstrutores().size()) {
                         System.out.println("Erro: Seleção de instrutor inválida");
@@ -151,14 +143,12 @@ public class Main {
                         System.out.print("Nome da modalidade (Yoga, Spinning, Zumba, CrossFit): ");
                         String modalidade = scanner.nextLine();
 
-                     
                         String nomeAtiv = "Aula de " + modalidade; 
 
                         AulaGrupo aula = new AulaGrupo(nomeAtiv, instAtiv, dataHoraAtiv, duracao, modalidade, capMax);
                         
                         if (aula.getPrecoBase() > 0) {
                             gymPoo.adicionarAtividade(aula);
-                            System.out.println("Aula de Grupo registada com sucesso (" + nomeAtiv + ")");
                         } else {
                             System.out.println("-> Falha a guardar: Modalidade inválida");
                         }
@@ -173,7 +163,6 @@ public class Main {
                         
                         if (pt.getPrecoBase() > 0) {
                             gymPoo.adicionarAtividade(pt);
-                            System.out.println("Sessão PT registada com sucesso (" + nomeAtiv + ")");
                         } else {
                             System.out.println("-> Falha a guardar: Nível inválido");
                         }
@@ -181,10 +170,8 @@ public class Main {
                         System.out.println("Opção de tipo de atividade inválida");
                     }
                     break;
+
                 case 4:
-                    /**
-                     * Listar Sócios
-                     */
                     System.out.println("\n--- Lista de Sócios Registados ---");
 
                     if (gymPoo.getSocios().isEmpty()) {
@@ -192,40 +179,26 @@ public class Main {
                     } else {
                         for (int i = 0; i < gymPoo.getSocios().size(); i++) {
                             Socio s = gymPoo.getSocios().get(i);
-
-                            String tipo;
-                            if (s instanceof SocioIndividual) {
-                                tipo = "Individual";
-                            } else {
-                                tipo = "Empresa";
-                            }
-
-                            System.out.println("Nº: " + s.getNumeroSocio() + " | Nome: " + s.getNome() + " | Email: " + s.getEmail() + " | Tipo: " + tipo);
+                            // Chamada polimórfica a getTipo() sem instanceof
+                            System.out.println("Nº: " + s.getNumeroSocio() + " | Nome: " + s.getNome() + " | Email: " + s.getEmail() + " | Tipo: " + s.getTipo());
                         }
                     }
                     break;
 
                 case 5:
-                    /**
-                     * Listar Atividades
-                     */
                     System.out.println("\n--- Lista de Atividades ---");
                     if (gymPoo.getAtividades().isEmpty()) {
                         System.out.println("Nenhuma atividade registada no sistema.");
                     } else {
                         for (int i = 0; i < gymPoo.getAtividades().size(); i++) {
                             Atividades a = gymPoo.getAtividades().get(i);
-
                             a.exibirDetalhes();
-                            System.out.println("  -> Custo Base: " + a.getPrecoBase() + "€");
+                            System.out.println("  -> Custo Base: " + a.getPrecoBase() + " Eur");
                         }
                     }
                     break;
 
                 case 6:
-                    /**
-                     * Criar Marcação
-                     */
                     System.out.println("\n--- Criar Marcação ---");
 
                     if (gymPoo.getSocios().isEmpty() || gymPoo.getAtividades().isEmpty() || gymPoo.getInstrutores().isEmpty()) {
@@ -285,21 +258,13 @@ public class Main {
                     Marcacao marcacao = new Marcacao(socioEncontrado, ativEscolhida, instEscolhido, dataMarcacao);
                     gymPoo.adicionarMarcacao(marcacao);
 
-                    double custoFinal = 0.0;
-                    if (socioEncontrado instanceof SocioIndividual) { 
-                        custoFinal = marcacao.calcularCustoFinal((SocioIndividual) socioEncontrado); 
-                    } else if (socioEncontrado instanceof SocioEmpresa) {
-                        custoFinal = marcacao.calcularCustoFinal((SocioEmpresa) socioEncontrado);
-                    }
+                    // Cálculo do custo polimórfico sem instanceof
+                    double custoFinal = marcacao.calcularCustoFinal();
 
-                    System.out.println("Marcação criada com sucesso");
-                    System.out.println("Preço Base: " + ativEscolhida.getPrecoBase() + "€ | Custo Final com Desconto: " + custoFinal + "€");
+                    System.out.println("Preço Base: " + ativEscolhida.getPrecoBase() + " Eur | Custo Final com Desconto: " + custoFinal + " Eur");
                     break;
 
                 case 7:
-                    /**
-                     * Listar Marcações e Total Faturado
-                     */
                     System.out.println("\n--- Lista de Marcações e Faturação ---");
                     double faturacaoTotal = 0.0;
 
@@ -309,30 +274,23 @@ public class Main {
                         for (int i = 0; i < gymPoo.getMarcacoes().size(); i++) {
                             Marcacao m = gymPoo.getMarcacoes().get(i);
                             
-                            double custoM = 0.0;
-                            if (m.getSocio() instanceof SocioIndividual) {
-                                custoM = m.calcularCustoFinal((SocioIndividual) m.getSocio());
-                            } else if (m.getSocio() instanceof SocioEmpresa) {
-                                custoM = m.calcularCustoFinal((SocioEmpresa) m.getSocio());
-                            }
+                            // Obtenção direta do custo via polimorfismo
+                            double custoM = m.calcularCustoFinal();
 
                             System.out.println("Sócio: " + m.getSocio().getNome() + 
                                             " | Atividade: " + m.getAtividade().getNome() + 
                                             " | Data: " + m.getDataHora() + 
-                                            " | Custo: " + custoM + "€");
+                                            " | Custo: " + custoM + " Eur");
                             
                             faturacaoTotal += custoM;
                         }
                         
                         System.out.println("---------------------------------------------");
-                        System.out.println("TOTAL FATURADO PELO GINÁSIO: " + faturacaoTotal + "€");
+                        System.out.println("TOTAL FATURADO PELO GINÁSIO: " + faturacaoTotal + " Eur");
                     }
                     break;
 
                 case 8:
-                    /**
-                     * Resumo do Ginásio (Contagem de Sócios e Atividades)
-                     */
                     int numIndiv = 0;
                     int numEmp = 0;
                     int numAulasGrupo = 0;
@@ -340,20 +298,18 @@ public class Main {
 
                     for (int i = 0; i < gymPoo.getSocios().size(); i++) {
                         Socio s = gymPoo.getSocios().get(i);
-                        
-                        if (s instanceof SocioIndividual) {
+                        if (s.getTipo().equalsIgnoreCase("Individual")) {
                             numIndiv++;
-                        } else if (s instanceof SocioEmpresa) {
+                        } else {
                             numEmp++;
                         }
                     }
 
                     for (int i = 0; i < gymPoo.getAtividades().size(); i++) {
                         Atividades a = gymPoo.getAtividades().get(i);
-                        
-                        if (a instanceof AulaGrupo) {
+                        if (a.getTipoAtividade().equalsIgnoreCase("Aula de Grupo")) {
                             numAulasGrupo++;
-                        } else if (a instanceof SessaoPt) {
+                        } else {
                             numSessoesPt++;
                         }
                     }
@@ -364,9 +320,6 @@ public class Main {
                     break;
 
                 case 9:
-                    /**
-                     * Determinar a Atividade Mais Popular
-                     */
                     System.out.println("\n--- Atividade Mais Popular ---");
 
                     if (gymPoo.getMarcacoes().isEmpty()) {
@@ -381,7 +334,6 @@ public class Main {
 
                             for (int j = 0; j < gymPoo.getMarcacoes().size(); j++) {
                                 Marcacao m = gymPoo.getMarcacoes().get(j);
-                                
                                 if (m.getAtividade().getNome().equalsIgnoreCase(ativ.getNome())) {
                                     contador++;
                                 }
@@ -401,9 +353,6 @@ public class Main {
                     break;
 
                 case 10:
-                    /**
-                     * Consultar Valores do Sócio (Gasto e Poupado)
-                     */
                     System.out.println("\n--- Consultar Valores do Sócio ---");
                     System.out.print("Insira o número do sócio: ");
                     int numProcurado = scanner.nextInt();
@@ -418,14 +367,8 @@ public class Main {
 
                         if (m.getSocio().getNumeroSocio() == numProcurado) {
                             encontrou = true;
-                            double custoComDesconto = 0.0;
-
-                            if (m.getSocio() instanceof SocioIndividual) {
-                                custoComDesconto = m.calcularCustoFinal((SocioIndividual) m.getSocio());
-                            } else if (m.getSocio() instanceof SocioEmpresa) {
-                                custoComDesconto = m.calcularCustoFinal((SocioEmpresa) m.getSocio());
-                            }
-
+                            
+                            double custoComDesconto = m.calcularCustoFinal();
                             double precoAtividade = m.getAtividade().getPrecoBase();
                             double poupanca = precoAtividade - custoComDesconto;
 
@@ -436,8 +379,8 @@ public class Main {
 
                     if (encontrou) {
                         System.out.println("Para o Sócio Nº " + numProcurado + ":");
-                        System.out.println(" -> Valor Total Gasto no Ginásio: " + totalGasto + "€");
-                        System.out.println(" -> Valor Total Poupado com Descontos: " + totalPoupado + "€");
+                        System.out.println(" -> Valor Total Gasto no Ginásio: " + totalGasto + " Eur");
+                        System.out.println(" -> Valor Total Poupado com Descontos: " + totalPoupado + " Eur");
                     } else {
                         System.out.println("Sócio não encontrado ou sem marcações registadas");
                     }
