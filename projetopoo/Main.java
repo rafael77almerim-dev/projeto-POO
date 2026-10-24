@@ -379,8 +379,8 @@ public class Main {
 
                     if (encontrou) {
                         System.out.println("Para o Sócio Nº " + numProcurado + ":");
-                        System.out.println(" -> Valor Total Gasto no Ginásio: " + totalGasto + " Eur");
-                        System.out.println(" -> Valor Total Poupado com Descontos: " + totalPoupado + " Eur");
+                        System.out.println(" -> Valor Total Gasto no Ginásio: " + String.format("%.2f", totalGasto) + " Eur");
+                        System.out.println(" -> Valor Total Poupado com Descontos: " + String.format("%.2f", totalPoupado) + " Eur");
                     } else {
                         System.out.println("Sócio não encontrado ou sem marcações registadas");
                     }
