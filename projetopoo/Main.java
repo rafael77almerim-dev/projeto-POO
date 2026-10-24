@@ -280,13 +280,13 @@ public class Main {
                             System.out.println("Sócio: " + m.getSocio().getNome() + 
                                             " | Atividade: " + m.getAtividade().getNome() + 
                                             " | Data: " + m.getDataHora() + 
-                                            " | Custo: " + custoM + " Eur");
+                                            " | Custo: " + String.format("%.2f", custoM) + " Eur");
                             
                             faturacaoTotal += custoM;
                         }
                         
                         System.out.println("---------------------------------------------");
-                        System.out.println("TOTAL FATURADO PELO GINÁSIO: " + faturacaoTotal + " Eur");
+                        System.out.println("TOTAL FATURADO PELO GINÁSIO: " + String.format("%.2f",faturacaoTotal) + " Eur");
                     }
                     break;
 
