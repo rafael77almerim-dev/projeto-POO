@@ -90,20 +90,43 @@ public class GymPoo {
         marcacoes.add(new Marcacao(s6, a7, i2, "27/10/2026 17:00"));
     }
 
-    /**
-     * Adiciona um novo sócio à coleção do ginásio
+        /**
+     * Procura um sócio na coleção através do seu número identificador.
      *
-     * @param socio Objeto do tipo Socio a adicionar
+     * @param numeroSocio Número do sócio a pesquisar
+     * @return Objeto Socio encontrado ou null se não existir
      */
-    public void adicionarSocio(Socio socio) {
-        if (socio != null) {
-            socios.add(socio);
-            System.out.println("Sócio adicionado com sucesso: " + socio.getNome());
-        } else {
-            System.out.println("Erro: Não é possível adicionar um sócio nulo");
+    public Socio procurarSocioPorNumero(int numeroSocio) {
+        for (int i = 0; i < socios.size(); i++) {
+            if (socios.get(i).getNumeroSocio() == numeroSocio) {
+                return socios.get(i);
+            }
         }
+        return null;
     }
 
+    /**
+     * Adiciona um novo sócio à coleção, garantindo que o número não é repetido.
+     *
+     * @param socio Objeto do tipo Socio a adicionar
+     * @return true se foi adicionado com sucesso, false caso contrário
+     */
+    public boolean adicionarSocio(Socio socio) {
+        if (socio == null) {
+            System.out.println("Erro: Não é possível adicionar um sócio nulo");
+            return false;
+        }
+        
+        // Verificação de segurança na classe gestora
+        if (procurarSocioPorNumero(socio.getNumeroSocio()) != null) {
+            System.out.println("Erro: Já existe um sócio registado com o número " + socio.getNumeroSocio());
+            return false;
+        }
+
+        socios.add(socio);
+        System.out.println("Sócio registado com sucesso: " + socio.getNome());
+        return true;
+    }
     /**
      * Adiciona um novo instrutor à coleção do ginásio
      *
@@ -179,4 +202,6 @@ public class GymPoo {
     public List<Marcacao> getMarcacoes() {
         return marcacoes;
     }
+
+    
 }

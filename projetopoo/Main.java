@@ -55,39 +55,46 @@ public class Main {
             }
 
             switch (opcao) {
-                case 1:
-                    System.out.println("\n--- Registar Sócio ---");
-                    System.out.print("Tipo de sócio (1 - Individual | 2 - Empresa): ");
-                    int tipoSocio = scanner.nextInt();
-                    scanner.nextLine();
+                            case 1:
+                System.out.println("\n--- Registar Sócio ---");
+                System.out.print("Número de Sócio: ");
+                int numSocio = scanner.nextInt();
+                scanner.nextLine();
 
-                    System.out.print("Nome: ");
-                    String nomeSocio = scanner.nextLine();
-                    System.out.print("Número de Sócio: ");
-                    int numSocio = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("E-mail: ");
-                    String email = scanner.nextLine();
-
-                    if (tipoSocio == 1) {
-                        System.out.print("Ano de nascimento: ");
-                        int anoNasc = scanner.nextInt();
-                        scanner.nextLine();
-
-                        SocioIndividual si = new SocioIndividual(nomeSocio, numSocio, email, anoNasc);
-                        gymPoo.adicionarSocio(si);
-                    } else if (tipoSocio == 2) {
-                        System.out.print("Nome da empresa parceira: ");
-                        String nomeEmp = scanner.nextLine();
-                        System.out.print("NIF da empresa: ");
-                        String nifEmp = scanner.nextLine();
-
-                        SocioEmpresa se = new SocioEmpresa(nomeSocio, numSocio, email, nomeEmp, nifEmp);
-                        gymPoo.adicionarSocio(se);
-                    } else {
-                        System.out.println("Opção de tipo de sócio inválida.");
-                    }
+                // Validação prévia na Main para evitar pedir o resto dos dados em vão
+                if (gymPoo.procurarSocioPorNumero(numSocio) != null) {
+                    System.out.println("Erro: O número de sócio " + numSocio + " já está atribuído a outro sócio.");
                     break;
+                }
+
+                System.out.print("Tipo de sócio (1 - Individual | 2 - Empresa): ");
+                int tipoSocio = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.print("Nome: ");
+                String nomeSocio = scanner.nextLine();
+                System.out.print("E-mail: ");
+                String email = scanner.nextLine();
+
+                if (tipoSocio == 1) {
+                    System.out.print("Ano de nascimento: ");
+                    int anoNasc = scanner.nextInt();
+                    scanner.nextLine();
+
+                    SocioIndividual si = new SocioIndividual(nomeSocio, numSocio, email, anoNasc);
+                    gymPoo.adicionarSocio(si);
+                } else if (tipoSocio == 2) {
+                    System.out.print("Nome da empresa parceira: ");
+                    String nomeEmp = scanner.nextLine();
+                    System.out.print("NIF da empresa: ");
+                    String nifEmp = scanner.nextLine();
+
+                    SocioEmpresa se = new SocioEmpresa(nomeSocio, numSocio, email, nomeEmp, nifEmp);
+                    gymPoo.adicionarSocio(se);
+                } else {
+                    System.out.println("Opção de tipo de sócio inválida.");
+                }
+                break;
 
                 case 2:
                     System.out.println("\n--- Registar Instrutor ---");
@@ -251,6 +258,8 @@ public class Main {
                         break;
                     }
                     Instrutor instEscolhido = gymPoo.getInstrutores().get(opcaoInst1);
+
+                    
 
                     System.out.print("Data/Hora da marcação: ");
                     String dataMarcacao = scanner.nextLine();
